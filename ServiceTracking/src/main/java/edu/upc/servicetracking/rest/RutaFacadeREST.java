@@ -25,7 +25,7 @@ import javax.ws.rs.Produces;
  * @author holivares
  */
 @Stateless
-@Path("ruta")
+@Path("edu.upc.servicetracking.entities.ruta")
 public class RutaFacadeREST extends AbstractFacade<Ruta> {
     @PersistenceContext(unitName = "edu.upc_ServiceTracking_war_1.0-SNAPSHOTPU")
     private EntityManager em;

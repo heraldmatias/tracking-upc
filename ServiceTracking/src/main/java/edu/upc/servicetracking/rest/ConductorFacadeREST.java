@@ -6,7 +6,7 @@
 
 package edu.upc.servicetracking.rest;
 
-import edu.upc.servicetracking.entities.Cliente;
+import edu.upc.servicetracking.entities.Conductor;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,26 +25,26 @@ import javax.ws.rs.Produces;
  * @author holivares
  */
 @Stateless
-@Path("edu.upc.servicetracking.entities.cliente")
-public class ClienteFacadeREST extends AbstractFacade<Cliente> {
+@Path("edu.upc.servicetracking.entities.conductor")
+public class ConductorFacadeREST extends AbstractFacade<Conductor> {
     @PersistenceContext(unitName = "edu.upc_ServiceTracking_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
-    public ClienteFacadeREST() {
-        super(Cliente.class);
+    public ConductorFacadeREST() {
+        super(Conductor.class);
     }
 
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Cliente entity) {
+    public void create(Conductor entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") Integer id, Cliente entity) {
+    public void edit(@PathParam("id") Integer id, Conductor entity) {
         super.edit(entity);
     }
 
@@ -57,21 +57,21 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     @GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public Cliente find(@PathParam("id") Integer id) {
+    public Conductor find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({"application/xml", "application/json"})
-    public List<Cliente> findAll() {
+    public List<Conductor> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({"application/xml", "application/json"})
-    public List<Cliente> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Conductor> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

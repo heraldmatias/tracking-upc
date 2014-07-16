@@ -6,7 +6,7 @@
 
 package edu.upc.servicetracking.rest;
 
-import edu.upc.servicetracking.entities.Cliente;
+import edu.upc.servicetracking.entities.DetalleRuta;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,26 +25,26 @@ import javax.ws.rs.Produces;
  * @author holivares
  */
 @Stateless
-@Path("edu.upc.servicetracking.entities.cliente")
-public class ClienteFacadeREST extends AbstractFacade<Cliente> {
+@Path("edu.upc.servicetracking.entities.detalleruta")
+public class DetalleRutaFacadeREST extends AbstractFacade<DetalleRuta> {
     @PersistenceContext(unitName = "edu.upc_ServiceTracking_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
-    public ClienteFacadeREST() {
-        super(Cliente.class);
+    public DetalleRutaFacadeREST() {
+        super(DetalleRuta.class);
     }
 
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Cliente entity) {
+    public void create(DetalleRuta entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") Integer id, Cliente entity) {
+    public void edit(@PathParam("id") Integer id, DetalleRuta entity) {
         super.edit(entity);
     }
 
@@ -57,21 +57,21 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     @GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public Cliente find(@PathParam("id") Integer id) {
+    public DetalleRuta find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({"application/xml", "application/json"})
-    public List<Cliente> findAll() {
+    public List<DetalleRuta> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({"application/xml", "application/json"})
-    public List<Cliente> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<DetalleRuta> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
