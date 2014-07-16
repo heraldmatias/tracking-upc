@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(edu.upc.servicetracking.rest.ClienteFacadeREST.class);
+        resources.add(edu.upc.servicetracking.rest.RutaFacadeREST.class);
     }
 
 }

@@ -7,16 +7,22 @@
 package edu.upc.servicetracking.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,21 +32,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tb_ruta")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Ruta.findAll", query = "SELECT m FROM Ruta m"),
-    @NamedQuery(name = "Ruta.findById", query = "SELECT m FROM Ruta m WHERE m.rutaid = :rutaid"),
-    @NamedQuery(name = "Ruta.findByName", query = "SELECT m FROM Ruta m WHERE m.conductorid = :conductorid")})
+    @NamedQuery(name = "Ruta.findAll", query = "SELECT m FROM Ruta m")})
 public class Ruta implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    @Id
-    @NotNull
     private Integer rutaid;
 
-    @NotNull
-    private Integer conductorid;
+    @JoinColumn(name = "conductorid", referencedColumnName = "conductorid")
+    @ManyToOne(optional = false)
+    private Conductor conductorId;
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -50,19 +52,14 @@ public class Ruta implements Serializable {
     @Size(min = 1, max = 45)
     private Character estado;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rutaId")
+    private Collection<DetalleRuta> detalles;
 
     public Ruta() {
     }
 
     public Ruta(Integer rutaid) {
         this.rutaid = rutaid;
-    }
-
-    public Ruta(Integer rutaid, Integer conductorid, String fecharuta, Character estado) {
-        this.rutaid = rutaid;
-        this.conductorid = conductorid;
-        this.fecharuta = fecharuta;
-        this.estado = estado;
     }
 
     public Integer getRutaid() {
@@ -73,16 +70,16 @@ public class Ruta implements Serializable {
         this.rutaid = rutaid;
     }
 
-    public Integer getConductorid() {
-        return conductorid;
-    }
-
-    public void setConductorid(Integer conductorid) {
-        this.conductorid = conductorid;
-    }
-
     public String getFecharuta() {
         return fecharuta;
+    }
+
+    public Conductor getConductorId() {
+        return conductorId;
+    }
+
+    public void setConductorId(Conductor conductorId) {
+        this.conductorId = conductorId;
     }
 
     public void setFecharuta(String fecharuta) {
@@ -95,6 +92,15 @@ public class Ruta implements Serializable {
 
     public void setEstado(Character estado) {
         this.estado = estado;
+    }
+
+    @XmlTransient
+    public Collection<DetalleRuta> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(Collection<DetalleRuta> detalles) {
+        this.detalles = detalles;
     }
 
     @Override

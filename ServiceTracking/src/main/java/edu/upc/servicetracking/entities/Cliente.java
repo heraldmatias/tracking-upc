@@ -7,6 +7,8 @@
 package edu.upc.servicetracking.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -17,6 +19,8 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 /**
@@ -43,6 +47,9 @@ public class Cliente implements Serializable {
     @NotNull
     @Size(min = 1, max = 45)
     private String latlong;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteId")
+    private Collection<DetalleRuta> detalles;
 
     public Cliente() {
     }
@@ -79,6 +86,14 @@ public class Cliente implements Serializable {
 
     public void setLatlong(String latlong) {
         this.latlong = latlong;
+    }
+    @XmlTransient
+    public Collection<DetalleRuta> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(Collection<DetalleRuta> detalles) {
+        this.detalles = detalles;
     }
 
     @Override
