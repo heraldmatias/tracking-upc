@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -51,17 +52,12 @@ public class ConductorFacadeREST extends AbstractFacade<Conductor> {
 
     @POST
     @Path("/auth")
-    @Produces({"application/xml", "application/json"})
+    @Produces({"application/json"})
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void auth(@FormParam("data") String data,
-            @Context HttpServletResponse servletResponse,
-            @Context HttpServletRequestWrapper request) {
-        try {
-            servletResponse.getWriter().print(data);
-            servletResponse.flushBuffer();
-        } catch (IOException ex) {
-            Logger.getLogger(ConductorFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public Conductor auth(@FormParam("user") String user, @FormParam("pass") String password) {
+        Query query = em.createNamedQuery("Conductor.findByDni")
+        .setParameter("dni", user);
+        return (Conductor) query.getSingleResult();
     }
 
     @PUT

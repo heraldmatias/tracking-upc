@@ -76,7 +76,6 @@ public class DetalleRutaFacadeREST extends AbstractFacade<DetalleRuta> {
         Query query = em.createNamedQuery("DetalleRuta.findByConductor")
         .setParameter("conductorId", conductorId);
         return query.getResultList();
-        //return super.findAll();
     }
 
     @GET

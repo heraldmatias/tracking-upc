@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tb_conductor")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Conductor.findAll", query = "SELECT m FROM Conductor m")})
+    @NamedQuery(name = "Conductor.findAll", query = "SELECT m FROM Conductor m"),
+    @NamedQuery(name = "Conductor.findByDni", query = "SELECT m FROM Conductor m WHERE m.dni=:dni")})
 public class Conductor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
