@@ -8,17 +8,10 @@ package edu.upc.servicetracking.rest;
 
 import edu.upc.servicetracking.entities.Conductor;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
-import javax.json.stream.JsonParserFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -34,7 +27,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import org.eclipse.persistence.internal.oxm.record.json.JSONReader;
 
 /**
  *
@@ -65,18 +57,10 @@ public class ConductorFacadeREST extends AbstractFacade<Conductor> {
             @Context HttpServletResponse servletResponse,
             @Context HttpServletRequestWrapper request) {
         
-        JsonReader jsonReader;
-        try {
-            jsonReader = Json.createReader(request.getReader());
-            JsonObject jo = jsonReader.readObject();
-            servletResponse.getWriter().print(jo.getJsonString("data"));
-            jsonReader.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ConductorFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         
         try {
-            
+            servletResponse.getWriter().print(data);    
             servletResponse.flushBuffer();
         } catch (IOException ex) {
             Logger.getLogger(ConductorFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
