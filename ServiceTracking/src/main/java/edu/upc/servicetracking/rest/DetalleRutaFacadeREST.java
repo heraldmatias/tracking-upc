@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,7 +26,7 @@ import javax.ws.rs.Produces;
  * @author holivares
  */
 @Stateless
-@Path("edu.upc.servicetracking.entities.detalleruta")
+@Path("detalleruta")
 public class DetalleRutaFacadeREST extends AbstractFacade<DetalleRuta> {
     @PersistenceContext(unitName = "edu.upc_ServiceTracking_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -66,6 +67,16 @@ public class DetalleRutaFacadeREST extends AbstractFacade<DetalleRuta> {
     @Produces({"application/xml", "application/json"})
     public List<DetalleRuta> findAll() {
         return super.findAll();
+    }
+    
+    @GET    
+    @Path("byconductor/{conductorId}")
+    @Produces({"application/xml", "application/json"})
+    public List<DetalleRuta> findByConductorAll(@PathParam("conductorId") Integer conductorId) {
+        Query query = em.createNamedQuery("DetalleRuta.findByConductor")
+        .setParameter("conductorId", conductorId);
+        return query.getResultList();
+        //return super.findAll();
     }
 
     @GET
