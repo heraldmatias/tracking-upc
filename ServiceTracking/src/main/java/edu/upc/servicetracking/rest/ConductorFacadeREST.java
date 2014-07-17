@@ -48,7 +48,7 @@ public class ConductorFacadeREST extends AbstractFacade<Conductor> {
     public void create(Conductor entity) {
         super.create(entity);
     }
-    
+
     @POST
     @Path("/auth")
     @Produces({"application/xml", "application/json"})
@@ -56,11 +56,8 @@ public class ConductorFacadeREST extends AbstractFacade<Conductor> {
     public void auth(@FormParam("data") String data,
             @Context HttpServletResponse servletResponse,
             @Context HttpServletRequestWrapper request) {
-        
-        
-        
         try {
-            servletResponse.getWriter().print(data);    
+            servletResponse.getWriter().print(data);
             servletResponse.flushBuffer();
         } catch (IOException ex) {
             Logger.getLogger(ConductorFacadeREST.class.getName()).log(Level.SEVERE, null, ex);

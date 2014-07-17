@@ -68,10 +68,10 @@ public class DetalleRutaFacadeREST extends AbstractFacade<DetalleRuta> {
     public List<DetalleRuta> findAll() {
         return super.findAll();
     }
-    
-    @GET    
+
+    @GET
     @Path("byconductor/{conductorId}")
-    @Produces({"application/xml", "application/json"})
+    @Produces({"application/json"})
     public List<DetalleRuta> findByConductorAll(@PathParam("conductorId") Integer conductorId) {
         Query query = em.createNamedQuery("DetalleRuta.findByConductor")
         .setParameter("conductorId", conductorId);
